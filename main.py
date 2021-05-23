@@ -2,7 +2,7 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
 import flower_rec as fr
-import pickle
+# import pickle
 
 Builder.load_string('''
 <FlowerImage>:
@@ -18,8 +18,8 @@ Builder.load_string('''
         on_press: root.capture()
 ''')
 
-with open(os.path.abspath('./mod.pkl'), 'rb') as f:
-    model = pickle.load(f)
+# with open(os.path.abspath('./mod.pkl'), 'rb') as f:
+#     model = pickle.load(f)
 
 
 class FlowerImage(BoxLayout):

@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import os
 import tensorflow as tf
 import PIL
@@ -30,7 +30,7 @@ img_width = 180
 train_ds = tf.keras.preprocessing.image_dataset_from_directory(data_dir,validation_split=0.2, subset="training", seed=123, image_size=(img_height, img_width),
   batch_size=batch_size)
 
- val_ds = tf.keras.preprocessing.image_dataset_from_directory(data_dir,validation_split=0.2,
+val_ds = tf.keras.preprocessing.image_dataset_from_directory(data_dir,validation_split=0.2,
   subset="validation",
   seed=123,
   image_size=(img_height, img_width),
@@ -107,12 +107,13 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 epochs = 15
-model.fit(train_ds, validation_data=val_ds, epochs=epoch)
+model.fit(train_ds, validation_data=val_ds, epochs=epochs)
 print("Augmented Model Fitting Complete")
 
 
 
 def img_pred(image_url):
+
     image_path = tf.keras.utils.get_file('IMG', origin=image_url)
     img = keras.preprocessing.image.load_img(
         image_path, target_size=(img_height, img_width)
@@ -122,8 +123,7 @@ def img_pred(image_url):
     predictions = model.predict(img_array)
     score = tf.nn.softmax(predictions[0])
 
-    text = "This image most likely belongs to {} with a {:.2f} percent confidence."
-    .format(class_name[np.argmax(score)], 100 * np.max(score))
+    text = 'This image most likely belongs to {} with a {:.2f} percent confidence.'.format(class_name[np.argmax(score)], 100 * np.max(score))
 
     return text
 
@@ -132,4 +132,3 @@ def img_pred(image_url):
 
 with open('model.pkl', 'wb') as f:
   pickle.dump(model, f)
-  pickle.dump()
