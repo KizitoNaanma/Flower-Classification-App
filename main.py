@@ -1,6 +1,8 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
+import flower_rec as fr
+import pickle
 
 Builder.load_string('''
 <FlowerImage>:
@@ -16,6 +18,9 @@ Builder.load_string('''
         on_press: root.capture()
 ''')
 
+with open(os.path.abspath('./mod.pkl'), 'rb') as f:
+    model = pickle.load(f)
+
 
 class FlowerImage(BoxLayout):
 
@@ -29,6 +34,17 @@ class FlowerImage(BoxLayout):
         camera.export_to_png("Test/IMG.png")
         print('Captured')
         self.ids['camera'].play = False
+
+    def main(self):
+        test_root = os.path.abspath('./'+'Test/')
+        image_url = 'file://'+test_root+'/IMG.png'
+
+        pred = fr.img_pred(image_url)
+
+        self.add_widget(Label(text=pred, text_size=(600, None), line_height=1.5))
+
+
+
 
 
 class ImageRecognition(App):
