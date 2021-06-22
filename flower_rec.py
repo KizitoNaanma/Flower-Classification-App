@@ -51,6 +51,30 @@ first_image = image_batch[0]
 # Notice the pixels values are now in `[0,1]`.
 # print(np.min(first_image), np.max(first_image))
 
+# def create_model():
+#     num_classes = 5
+#     model = Sequential([
+#             layers.experimental.preprocessing.Rescaling(1./255, input_shape=(img_height, img_width,3)),
+#             layers.Conv2D(16, 3, padding='same', activation='relu'),
+#             layers.MaxPooling2D(),
+#             layers.Conv2D(32, 3, padding='same', activation='relu'),
+#             layers.MaxPooling2D(),
+#             layers.Conv2D(64, 3, padding='same', activation='relu'),
+#             layers.MaxPooling2D(),
+#             layers.Flatten(),
+#             layers.Dense(128, activation='relu'),
+#             layers.Dense(num_classes)
+#     ])
+#
+#     model.compile(optimizer='adam',
+#                 loss = tf.losses.SparseCategoricalCrossentropy(from+from_logits=True),
+#                 metrics=['accuracy'])
+#
+#     return model
+#
+# model = create_model()
+
+
 num_classes = 5
 
 model = Sequential([
@@ -106,6 +130,13 @@ model.compile(optimizer='adam',
               loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
+checkpoint_path = "training_1/cp.ckpt"
+checkpoint_dir = os.path.dirname(checkpoint_path)
+
+cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path,
+                                                 save_weights_only=True,
+                                                 verbose=1)
+                                                 
 epochs = 15
 model.fit(train_ds, validation_data=val_ds, epochs=epochs)
 print("Augmented Model Fitting Complete")

@@ -1,7 +1,7 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.boxlayout import BoxLayout
-import flower_rec as fr
+# import flower_rec as fr
 # import pickle
 
 Builder.load_string('''
@@ -35,13 +35,13 @@ class FlowerImage(BoxLayout):
         print('Captured')
         self.ids['camera'].play = False
 
-    def main(self):
-        test_root = os.path.abspath('./'+'Test/')
-        image_url = 'file://'+test_root+'/IMG.png'
-
-        pred = fr.img_pred(image_url)
-
-        self.add_widget(Label(text=pred, text_size=(600, None), line_height=1.5))
+    # def main(self):
+    #     test_root = os.path.abspath('./'+'Test/')
+    #     image_url = 'file://'+test_root+'/IMG.png'
+    #
+    #     pred = fr.img_pred(image_url)
+    #
+    #     self.add_widget(Label(text=pred, text_size=(600, None), line_height=1.5))
 
 
 
